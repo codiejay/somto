@@ -26,8 +26,14 @@ module.exports = {
   plugins: ['react', 'prettier'],
   rules: {
     'import/extensions': 'off',
+    'import/default': 'off',
+    'import/prefer-default-export': 'off',
     'import/no-unresolved': 'off',
     'no-plusplus': 'off',
+    'import/order': 'off',
+    'react/jsx-curly-brace-presence': 'off',
+    'arrow-body-style': 'off',
+    'prefer-template': 'off',
     'react/function-component-definition': [
       2,
       { namedComponents: 'arrow-function' },

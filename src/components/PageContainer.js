@@ -1,19 +1,45 @@
-import { Heading, useColorMode, VStack } from '@chakra-ui/react';
+import { Box, Flex, useColorMode, VStack } from '@chakra-ui/react';
+import MovingGradientBox from './Gradient/VerticalGradient';
 
-const PageContainer = ({ children, title }) => {
+const generateSpeed = () => Math.random() * 10 + 1;
+const PageContainer = ({ children }) => {
   const { colorMode } = useColorMode();
 
   return (
     <VStack
       justify="center"
       h="100vh"
-      bg={colorMode === 'light' ? 'gray.100' : 'gray.800'}
+      bg={colorMode === 'light' ? 'black' : 'black'}
       transition="background 100ms linear"
+      zIndex={-1}
+      w="100%"
     >
-      <Heading as="h1" size="2xl" mb={6} textAlign="center">
-        {title}
-      </Heading>
-      {children}
+      <Box w="100%" position="fixed" opacity="0.4">
+        <Flex justify="space-between" w="100%" opacity="0.6">
+          {Array.from({ length: 7 }).map((item) => (
+            <MovingGradientBox key={item} speed={generateSpeed()} />
+          ))}
+        </Flex>
+        <Flex
+          opacity="0.6"
+          position="fixed"
+          top="-30%"
+          justify="space-between"
+          w="100%"
+          transform="rotate(90deg)"
+        >
+          {Array.from({ length: 7 }).map((item) => (
+            <MovingGradientBox
+              key={item}
+              speed={generateSpeed()}
+              height="120vw"
+            />
+          ))}
+        </Flex>
+      </Box>
+      <Flex zIndex={500} maxW="80%" overflowY="hidden">
+        {children}
+      </Flex>
     </VStack>
   );
 };

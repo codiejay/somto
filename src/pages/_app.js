@@ -1,18 +1,16 @@
+import { Box, ChakraProvider } from '@chakra-ui/react';
+import { AnimatePresence, motion } from 'framer-motion';
+import { DefaultSeo } from 'next-seo';
+import SEO from 'next-seo.config';
 import Router from 'next/router';
 import NProgress from 'nprogress';
 
-import { DefaultSeo } from 'next-seo';
-import { Box, ChakraProvider } from '@chakra-ui/react';
-import { AnimatePresence, motion } from 'framer-motion';
-
-import SEO from 'next-seo.config';
-import theme from '@/styles/theme';
-import GlobalStyle from '@/styles/styles';
 import '@/styles/css/nprogress.css';
+import GlobalStyle from '@/styles/styles';
+import theme from '@/styles/theme';
+import Fonts from 'public/fonts';
 
-import Star from '@/components/Star';
-import Footer from '@/components/Footer';
-
+// NProgress configuration
 Router.events.on('routeChangeStart', () => NProgress.start());
 Router.events.on('routeChangeComplete', () => NProgress.done());
 Router.events.on('routeChangeError', () => NProgress.done());
@@ -22,9 +20,8 @@ const MotionBox = motion(Box);
 const MyApp = ({ Component, pageProps, router }) => (
   <ChakraProvider resetCSS theme={theme}>
     <DefaultSeo {...SEO} />
-
+    <Fonts />
     <GlobalStyle>
-      <Star />
       <AnimatePresence exitBeforeEnter>
         <MotionBox
           key={router.route}
@@ -42,7 +39,6 @@ const MyApp = ({ Component, pageProps, router }) => (
           <Component {...pageProps} />
         </MotionBox>
       </AnimatePresence>
-      <Footer />
     </GlobalStyle>
   </ChakraProvider>
 );

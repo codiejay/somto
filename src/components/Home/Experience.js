@@ -1,4 +1,4 @@
-import { Flex, Heading, Image, Text } from '@chakra-ui/react';
+import { Button, Flex, HStack, Heading, Image, Text } from '@chakra-ui/react';
 import { experienceList } from 'src/utils/experience';
 
 const ExperienceBox = ({
@@ -31,7 +31,7 @@ const ExperienceBox = ({
   );
 };
 // eslint-disable-next-line import/prefer-default-export
-export const Experiences = () => {
+export const Experiences = ({ closeExperienceCarousel }) => {
   return (
     <Flex
       p="4"
@@ -41,8 +41,24 @@ export const Experiences = () => {
       borderRadius="12px"
       flexDir="column"
     >
-      <Heading fontFamily={'midClash'}>Experience</Heading>
+      <HStack justify="space-between">
+        <Heading fontFamily={'midClash'}>Experience</Heading>
+        <Button
+          bg="black"
+          color="white"
+          _hover={{
+            backgroundColor: 'black',
+          }}
+          onClick={() => {
+            closeExperienceCarousel();
+          }}
+        >
+          Close
+        </Button>
+      </HStack>
+
       <Flex
+        w="90%"
         mt={6}
         gap={8}
         flexDir="column"

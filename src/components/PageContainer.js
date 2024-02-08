@@ -13,8 +13,9 @@ const PageContainer = ({ children }) => {
       transition="background 100ms linear"
       zIndex={-1}
       w="100%"
+      overflow="hidden"
     >
-      <Box w="100%" position="fixed" opacity="0.4">
+      <Box w="100%" position="fixed" opacity="0.4" overflow="hidden">
         <Flex justify="space-between" w="100%" opacity="0.6">
           {Array.from({ length: 7 }).map((item) => (
             <MovingGradientBox key={item} speed={generateSpeed()} />
@@ -37,7 +38,14 @@ const PageContainer = ({ children }) => {
           ))}
         </Flex>
       </Box>
-      <Flex zIndex={500} maxW="80%" overflowY="hidden">
+      <Flex
+        zIndex={500}
+        maxW={{
+          base: '100%',
+          md: '90%',
+          lg: '90%',
+        }}
+      >
         {children}
       </Flex>
     </VStack>

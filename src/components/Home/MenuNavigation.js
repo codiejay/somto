@@ -1,13 +1,14 @@
 import { Flex } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
-import { About } from './About';
-import { Contact } from './Contact';
+import { BottomNav } from './BottomNav';
 import { Experiences } from './Experience';
-import { Works } from './Works';
+import { MainAbout } from './MainAbout';
 
 export const MenuNavigation = ({ display }) => {
   const [width, setWidth] = useState('0%');
+  const [displayExperienceCarousel, setDisplayExperienceCarousel] =
+    useState(false);
   const [showItems, setShowItems] = useState(false);
   const router = useRouter();
   const currentQuery = router.query;
@@ -21,6 +22,10 @@ export const MenuNavigation = ({ display }) => {
       setShowItems(false);
     }
   }, 10);
+
+  const showExperienceCarousel = () => {
+    setDisplayExperienceCarousel(true);
+  };
 
   return (
     <Flex
@@ -46,6 +51,7 @@ export const MenuNavigation = ({ display }) => {
       <Flex
         visibility={showItems ? 'visible' : 'hidden'}
         opacity={showItems ? '1' : '0'}
+        display={display}
         w="80%"
         m="4% auto 0 auto"
         gap={4}
@@ -56,15 +62,32 @@ export const MenuNavigation = ({ display }) => {
           console.log(event.target);
         }}
         id="navigationFlex"
+        h="fit-content"
+        flexDir="column"
       >
-        <Flex w="50%" m="0 auto" flexDir="column" gap={4}>
+        {displayExperienceCarousel ? (
+          <Experiences
+            closeExperienceCarousel={() => {
+              setDisplayExperienceCarousel(false);
+            }}
+          />
+        ) : (
+          <MainAbout />
+        )}
+
+        <BottomNav
+          showExperienceCarousel={() => {
+            showExperienceCarousel();
+          }}
+        />
+        {/* <Flex w="50%" m="0 auto" flexDir="column" gap={4}>
           <Experiences />
           <Contact />
         </Flex>
         <Flex w="50%" m="0 auto" h="98%" flexDir="column" gap={4}>
           <About />
           <Works />
-        </Flex>
+        </Flex> */}
       </Flex>
     </Flex>
   );
